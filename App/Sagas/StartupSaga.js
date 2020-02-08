@@ -10,9 +10,10 @@ export function* startup() {
   // @see https://redux-saga.js.org/docs/basics/DispatchingActions.html
   yield put(ExampleActions.fetchUser())
 
-  // Add more operations you need to do at startup here
-  // ...
+  // if the user has an Address s/he will be redirected to Main Screen
+  // NavigationService.navigateAndReset('Main');
 
-  // When those operations are finished we redirect to the main screen
-  NavigationService.navigateAndReset('MainScreen')
+  
+  // if the user DOESNT have an Address s/he will be redirected to the IntroScreen
+  // NavigationService.navigateAndReset('Intro');
 }

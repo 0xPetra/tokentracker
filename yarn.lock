@@ -5951,6 +5951,11 @@ react-native-rename@^2.4.1:
     node-replace "^0.3.3"
     shelljs "^0.7.7"
 
+react-native-responsive-screen@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/react-native-responsive-screen/-/react-native-responsive-screen-1.4.0.tgz#c7d90c173edba28c023c665975c0de85fd60eaba"
+  integrity sha512-qhT4+ATQbqV1GYaCzit560HnBNoZD7WahiZKAZebJlgBl6D8uY+kYuGwBl3rIamP5CsMfwyUJnoI5Z79JU2yyA==
+
 react-native-safe-area-view@^0.14.1:
   version "0.14.8"
   resolved "https://registry.yarnpkg.com/react-native-safe-area-view/-/react-native-safe-area-view-0.14.8.tgz#ef33c46ff8164ae77acad48c3039ec9c34873e5b"
