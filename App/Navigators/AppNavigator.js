@@ -13,14 +13,14 @@ import SplashScreen from 'App/Containers/SplashScreen'
 const StackNavigator = createStackNavigator(
   {
     // The main application screen is our "MainScreen"
-    MainScreen: MainScreen,
-    SplashScreen: SplashScreen,
+    Main: MainScreen,
+    Splash: SplashScreen,
     Intro: IntroScreen,
     SetAccount: SetAccountScreen,
   },
   {
     // By default the application will show the splash screen
-    initialRouteName: 'SplashScreen',
+    initialRouteName: 'Splash',
     // See https://reactnavigation.org/docs/en/stack-navigator.html#stacknavigatorconfig
     headerMode: 'none',
   }

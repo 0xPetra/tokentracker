@@ -1,24 +1,43 @@
 import React from 'react'
-import { Platform, Text, View, Button, ActivityIndicator, Image } from 'react-native'
+import { Platform, Text, View, Button, ActivityIndicator, TextInput } from 'react-native'
 import { connect } from 'react-redux'
 import { PropTypes } from 'prop-types'
-import ExampleActions from 'App/Stores/Example/Actions'
-import { liveInEurope } from 'App/Stores/Example/Selectors'
+import KeyboardSpacer from 'react-native-keyboard-spacer';
+import NavigationService from '../../Services/NavigationService'
+import SetUser from '../../Stores/SetUser/Actions'
 import Style from './SetAccountScreenStyle'
-import { ApplicationStyles, Helpers, Images, Metrics } from 'App/Theme'
-
-
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\nCmd+D or shake for dev menu.',
-  android: 'Double tap R on your keyboard to reload,\nShake or press menu button for dev menu.',
-})
+import { ApplicationStyles, Helpers, Images, Metrics, Colors } from '../../Theme'
 
 class SetAccountScreen extends React.Component {
-  componentDidMount() {
-    this._fetchUser()
+  
+  state = {
+    address: '',
+    textInputBorder: Colors.ligthGrey
+  }
+
+  // componentDidMount() {
+  // }
+
+  onError = () => {
+    this.setState({ textInputBorder: Colors.error })
+  }
+
+  validateAndSet = () => {
+    const { address } = this.state;
+    let isEthAddress = !!address;
+    // https://ethereum.stackexchange.com/questions/1374/how-can-i-check-if-an-ethereum-address-is-valid
+
+      if (isEthAddress) {
+        this.props.setUser(address)
+        NavigationService.navigateAndReset('Main');
+    } else {
+        this.onError()
+    }
   }
 
   render() {
+    const { textInputBorder } = this.state;
+
     return (
       <View
         style={[
@@ -33,41 +52,37 @@ class SetAccountScreen extends React.Component {
               <Image style={Helpers.fullSize} source={Images.logo} resizeMode={'contain'} />
             </View> */}
             <Text style={Style.text}>INTRO INTRO INTRO INTRO</Text>
+            <TextInput
+                multiline={false}
+                maxLength={42}
+                placeholder={'Ethereum Address'}
+                autoCapitalize='none'
+                onChangeText={address => this.setState({ address })}
+                style={[{width: '80%',borderWidth: 1,borderColor: Colors.primary, alignSelf: 'center'}, {borderColor: textInputBorder}]}
+                floatOnFocus
+                underlineColorAndroid={"transparent"}
+            />
             <Button
               style={ApplicationStyles.button}
-              onPress={() => this._fetchUser()}
+              onPress={() => this.validateAndSet()}
               title="Refresh"
             />
+            <KeyboardSpacer/>
           </View>
       </View>
     )
   }
-
-  _fetchUser() {
-    this.props.fetchUser()
-  }
 }
 
-SetAccountScreenScreen.propTypes = {
-  user: PropTypes.object,
-  userIsLoading: PropTypes.bool,
-  userErrorMessage: PropTypes.string,
-  fetchUser: PropTypes.func,
-  liveInEurope: PropTypes.bool,
+SetAccountScreen.propTypes = {
+  address: PropTypes.string,
 }
-
-const mapStateToProps = (state) => ({
-  user: state.example.user,
-  userIsLoading: state.example.userIsLoading,
-  userErrorMessage: state.example.userErrorMessage,
-  liveInEurope: liveInEurope(state),
-})
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchUser: () => dispatch(ExampleActions.fetchUser()),
+  setUser: (address) => dispatch(SetUser.setUser(address)),
 })
 
 export default connect(
-  mapStateToProps,
+  null,
   mapDispatchToProps
-)(SetAccountScreenScreen)
+)(SetAccountScreen)

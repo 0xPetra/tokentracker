@@ -7,15 +7,8 @@ import { liveInEurope } from 'App/Stores/Example/Selectors'
 import Style from './MainScreenStyle'
 import { ApplicationStyles, Helpers, Images, Metrics } from 'App/Theme'
 
-
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\nCmd+D or shake for dev menu.',
-  android: 'Double tap R on your keyboard to reload,\nShake or press menu button for dev menu.',
-})
-
 class MainScreen extends React.Component {
   componentDidMount() {
-    this._fetchUser()
   }
 
   render() {
@@ -28,16 +21,16 @@ class MainScreen extends React.Component {
           Metrics.mediumVerticalMargin,
         ]}
       >
-        {this.props.userIsLoading ? (
+        {this.props.balancesLoading ? (
           <ActivityIndicator size="large" color="#0000ff" />
         ) : (
           <View>
             {/* <View style={Style.logoContainer}>
               <Image style={Helpers.fullSize} source={Images.logo} resizeMode={'contain'} />
             </View> */}
-            <Text style={Style.text}>To get started, edit App.js</Text>
-            <Text style={Style.instructions}>{instructions}</Text>
-            {this.props.userErrorMessage ? (
+            <Text style={Style.text}>{this.props.address}</Text>
+            {/* <Text style={Style.text}>{...this.props.tokenBalances}</Text> */}
+            {/* {this.props.userErrorMessage ? (
               <Text style={Style.error}>{this.props.userErrorMessage}</Text>
             ) : (
               <View>
@@ -49,43 +42,32 @@ class MainScreen extends React.Component {
                   {this.props.liveInEurope ? 'I live in Europe !' : "I don't live in Europe."}
                 </Text>
               </View>
-            )}
-            <Button
+            )} */}
+            {/* <Button
               style={ApplicationStyles.button}
               onPress={() => this._fetchUser()}
               title="Refresh"
-            />
+            /> */}
           </View>
         )}
       </View>
     )
   }
-
-  _fetchUser() {
-    this.props.fetchUser()
-  }
 }
 
 MainScreen.propTypes = {
-  user: PropTypes.object,
-  userIsLoading: PropTypes.bool,
-  userErrorMessage: PropTypes.string,
-  fetchUser: PropTypes.func,
-  liveInEurope: PropTypes.bool,
+  address: PropTypes.string,
+  tokenBalances: PropTypes.array,
+  balancesLoading: PropTypes.bool,
+  balancesErrorMessage: PropTypes.string,
 }
 
 const mapStateToProps = (state) => ({
-  user: state.example.user,
-  userIsLoading: state.example.userIsLoading,
-  userErrorMessage: state.example.userErrorMessage,
-  liveInEurope: liveInEurope(state),
+  state: state,
+  address: state.address.address,
+  tokenBalances: state.balances.tokenBalances,
+  balancesLoading: state.balances.balancesLoading,
+  balancesErrorMessage: state.balances.balancesErrorMessage,
 })
 
-const mapDispatchToProps = (dispatch) => ({
-  fetchUser: () => dispatch(ExampleActions.fetchUser()),
-})
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(MainScreen)
+export default connect(mapStateToProps)(MainScreen)

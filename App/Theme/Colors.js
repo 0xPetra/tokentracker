@@ -14,4 +14,6 @@ export default {
   white: '#FFFFFF',
   black: '#151522',
   grey: '#999999',
+  ligthGrey: 'rgba(228, 228, 228, 0.6)',
+  error: 'red',
 }
