@@ -6,7 +6,8 @@ import KeyboardSpacer from 'react-native-keyboard-spacer';
 import NavigationService from '../../Services/NavigationService'
 import SetUser from '../../Stores/SetUser/Actions'
 import Style from './SetAccountScreenStyle'
-import { ApplicationStyles, Helpers, Images, Metrics, Colors } from '../../Theme'
+import { ApplicationStyles, Helpers, Images, Metrics, Colors } from '../../Theme';
+import Background from '../../Components/Background';
 
 class SetAccountScreen extends React.Component {
   
@@ -24,9 +25,10 @@ class SetAccountScreen extends React.Component {
 
   validateAndSet = () => {
     const { address } = this.state;
-    let isEthAddress = !!address;
+    //  TODO: Add web3 Eth address verification
     // https://ethereum.stackexchange.com/questions/1374/how-can-i-check-if-an-ethereum-address-is-valid
-
+    // web3.utils.toChecksumAddress(rawInput)
+    let isEthAddress = !!address;  
       if (isEthAddress) {
         this.props.setUser(address)
         NavigationService.navigateAndReset('Main');
@@ -39,6 +41,7 @@ class SetAccountScreen extends React.Component {
     const { textInputBorder } = this.state;
 
     return (
+      <Background>
       <View
         style={[
           Helpers.fill,
@@ -70,6 +73,7 @@ class SetAccountScreen extends React.Component {
             <KeyboardSpacer/>
           </View>
       </View>
+      </Background>
     )
   }
 }

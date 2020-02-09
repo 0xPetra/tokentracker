@@ -1,32 +1,18 @@
 import { StyleSheet } from 'react-native'
+import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import { Helpers, Metrics, Fonts, Colors } from 'App/Theme'
 
 export default StyleSheet.create({
-  error: {
-    ...Fonts.normal,
-    color: Colors.error,
-    marginBottom: Metrics.tiny,
-    textAlign: 'center',
+  image: {
+    flex: 1
   },
-  instructions: {
-    ...Fonts.normal,
-    fontStyle: 'italic',
-    marginBottom: Metrics.tiny,
-    textAlign: 'center',
+  skipBtn: {
+    color: Colors.black,
+    justifyContent: 'flex-end',
+    height: hp('10%')
   },
-  logoContainer: {
-    ...Helpers.fullWidth,
-    height: 300,
-    marginBottom: 25,
-  },
-  result: {
-    ...Fonts.normal,
-    marginBottom: Metrics.tiny,
-    textAlign: 'center',
-  },
-  text: {
-    ...Fonts.normal,
-    marginBottom: Metrics.tiny,
-    textAlign: 'center',
-  },
+  nextBtn: {
+    backgroundColor: Colors.primary,
+    color: Colors.white
+  }
 })

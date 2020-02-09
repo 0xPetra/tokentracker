@@ -1,73 +1,87 @@
 import React from 'react'
-import { Platform, Text, View, Button, ActivityIndicator, Image } from 'react-native'
-import { connect } from 'react-redux'
-import { PropTypes } from 'prop-types'
-import ExampleActions from 'App/Stores/Example/Actions'
-import { liveInEurope } from 'App/Stores/Example/Selectors'
-import Style from './IntroScreenStyle'
-import { ApplicationStyles, Helpers, Images, Metrics } from 'App/Theme'
-
-
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\nCmd+D or shake for dev menu.',
-  android: 'Double tap R on your keyboard to reload,\nShake or press menu button for dev menu.',
-})
+import { Platform, Text, View, Button, ActivityIndicator, Image, TouchableOpacity } from 'react-native'
+import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
+import Style from './IntroScreenStyle';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import MaterialIcons from '../../Components/MaterialIcons'
+import { ApplicationStyles, Helpers, Images, Metrics, Colors } from '../../Theme'
+import Background from '../../Components/Background';
+import TEXTS from '../../Constants/texts';
+import NavigationService from '../../Services/NavigationService'
 
 class IntroScreen extends React.Component {
-  componentDidMount() {
-    this._fetchUser()
+  state = {
+    iterator: 0
   }
+
+  iterateNext() {
+    let { iterator } = this.state;
+    console.log('iterator', iterator);
+    if (iterator < 2) {
+      this.setState({ iterator: iterator + 1 })
+    } else {
+      NavigationService.navigate('SetAccount');
+    }
+  }
+
+  myButton = () => {
+    return ( 
+    <TouchableOpacity
+    onPress={() => this.iterateNext()}
+    style={{ 
+      backgroundColor: Colors.primary,
+      width: wp('30%'),
+      height: hp('5%'),
+      borderRadius: 5, 
+      borderwidth: wp('35%'), 
+      flexDirection: 'row',
+      justContent: 'space-around', 
+      alignItems: 'center',
+      paddingHorizontal:wp('2%')
+    }}
+    >
+      <Text style={{color: Colors.white }}>
+        Next
+      </Text>
+      <MaterialIcons
+                name={'keyboard-arrow-right'}
+                size={hp('3%')}
+                color={Colors.white}
+                />
+    </TouchableOpacity>
+  )}
 
   render() {
+    const { iterator } = this.state;
     return (
-      <View
-        style={[
-          Helpers.fill,
-          Helpers.rowMain,
-          Metrics.mediumHorizontalMargin,
-          Metrics.mediumVerticalMargin,
-        ]}
-      >
-          <View>
-            {/* <View style={Style.logoContainer}>
-              <Image style={Helpers.fullSize} source={Images.logo} resizeMode={'contain'} />
-            </View> */}
-            <Text style={Style.text}>INTRO INTRO INTRO INTRO</Text>
-            <Button
-              style={ApplicationStyles.button}
-              onPress={() => this._fetchUser()}
-              title="Refresh"
-            />
-          </View>
-      </View>
+      <Background>
+        <View style={{flex: 1}}>
+
+        <Button
+          style={Style.skipBtn}
+          onPress={() => NavigationService.navigate('SetAccount')}
+          title="Skip"
+        />
+
+        <View style={{ flex: 3 }}>
+          <Image style={Style.image} source={Images[TEXTS.INTRO[iterator].image]} resizeMode={'contain'} />
+        </View>
+
+        <View style={{ flex: 2 }}>
+          <Text style={Style.text}>{TEXTS.INTRO[iterator].title}</Text>
+          <Text style={Style.text}>{TEXTS.INTRO[iterator].subtitle}</Text>
+        </View>
+
+
+        <View style={{ flexDirection: 'row', flex: 1, justifyContent: 'space-around', alignItems: 'center'}}>
+          <Image source={Images.smallLines} resizeMode={'contain'} />
+          {this.myButton()}
+        </View>
+
+            </View>
+      </Background>
     )
   }
-
-  _fetchUser() {
-    this.props.fetchUser()
-  }
 }
 
-IntroScreen.propTypes = {
-  user: PropTypes.object,
-  userIsLoading: PropTypes.bool,
-  userErrorMessage: PropTypes.string,
-  fetchUser: PropTypes.func,
-  liveInEurope: PropTypes.bool,
-}
-
-const mapStateToProps = (state) => ({
-  user: state.example.user,
-  userIsLoading: state.example.userIsLoading,
-  userErrorMessage: state.example.userErrorMessage,
-  liveInEurope: liveInEurope(state),
-})
-
-const mapDispatchToProps = (dispatch) => ({
-  fetchUser: () => dispatch(ExampleActions.fetchUser()),
-})
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(IntroScreen)
+export default (IntroScreen)
