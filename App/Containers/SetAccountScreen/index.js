@@ -76,6 +76,7 @@ class SetAccountScreen extends React.Component {
 
 SetAccountScreen.propTypes = {
   address: PropTypes.string,
+  setUser: PropTypes.func,
 }
 
 const mapDispatchToProps = (dispatch) => ({

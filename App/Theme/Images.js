@@ -3,5 +3,8 @@
  */
 
 export default {
-  logo: require('App/Assets/Images/logo.png'),
+  logo: require('../Assets/Images/logo.png'),
+  headerBackground: require('../Assets/Images/headerBackground.png'),
+  monthlySalary: require('../Assets/Images/monthlySalary.png'),
+  background: require('../Assets/Images/background.png'),
 }

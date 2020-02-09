@@ -13,6 +13,7 @@ export default {
   secondary: '#00C48C',
   white: '#FFFFFF',
   black: '#151522',
+  blackPure: '#000000',
   grey: '#999999',
   ligthGrey: 'rgba(228, 228, 228, 0.6)',
   error: 'red',

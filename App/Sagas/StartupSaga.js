@@ -12,8 +12,7 @@ export function* startup() {
   const fetchUser = (state) => state.address;
   const address = yield select(fetchUser);
   
-  // if (!!address) {
-  if (false) {
+  if (!!address.address) {
     // if the user has an Address we will trigger the fetchData Saga
     yield fetchData(address);
     // if the user has an Address s/he will be redirected to Main Screen
@@ -24,6 +23,6 @@ export function* startup() {
     // if the user DOESNT have an Address s/he will be redirected to the IntroScreen
     NavigationService.navigateAndReset('Intro');
     
-    NavigationService.navigateAndReset('SetAccount');
+    // NavigationService.navigateAndReset('SetAccount');
   }
 }

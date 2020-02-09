@@ -38,12 +38,8 @@ export function* fetchData({address}) {
   }
 
   if (!!error.length) {
-    console.log('errorrrrrrrr', error, !!error.length);
     yield put(DataActions.balancesErrorMessage(error))
   } else {
-    console.log('set tokenssss');
     yield put(DataActions.tokenBalances(tokens))
   }
-
-
 }
