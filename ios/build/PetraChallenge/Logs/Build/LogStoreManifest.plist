@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>logFormatVersion</key>
+	<integer>10</integer>
+	<key>logs</key>
+	<dict>
+		<key>BE2E54D5-E0BE-45F1-B89C-700D4F058AD4</key>
+		<dict>
+			<key>className</key>
+			<string>IDECommandLineBuildLog</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>BE2E54D5-E0BE-45F1-B89C-700D4F058AD4.xcactivitylog</string>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>E</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>PetraChallenge project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>PetraChallenge</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Building workspace PetraChallenge with scheme PetraChallenge and configuration Debug</string>
+			<key>timeStartedRecording</key>
+			<real>602867531.74384499</real>
+			<key>timeStoppedRecording</key>
+			<real>602867534.73131502</real>
+			<key>title</key>
+			<string>Building workspace PetraChallenge with scheme PetraChallenge and configuration Debug</string>
+			<key>uniqueIdentifier</key>
+			<string>BE2E54D5-E0BE-45F1-B89C-700D4F058AD4</string>
+		</dict>
+	</dict>
+</dict>
+</plist>
