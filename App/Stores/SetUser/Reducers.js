@@ -12,9 +12,17 @@ export const setUser = (state, { address }) => ({
   address,
 })
 
+export const logoutUser = (state) => {
+  return ({
+    ...state,
+    address: '',
+  })
+}
+
 /**
  * @see https://github.com/infinitered/reduxsauce#createreducer
  */
 export const reducer = createReducer('', {
   [AccountTypes.SET_USER]: setUser,
+  [AccountTypes.LOGOUT_USER]: logoutUser,
 })

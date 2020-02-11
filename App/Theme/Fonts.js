@@ -7,7 +7,7 @@ const size = {
   h3: hp('3%'),
   input: 18,
   regular: hp('2%'),
-  medium: 14,
+  medium: hp('2.2%'),
   small: 12,
 }
 
@@ -27,5 +27,8 @@ export default StyleSheet.create({
   },
   normal: {
     fontSize: size.regular,
+  },
+  medium: {
+    fontSize: size.medium,
   },
 })

@@ -1,10 +1,11 @@
 import React from 'react'
 import { Text, View, Image, TouchableOpacity, Linking } from 'react-native'
+import NumberFormat from 'react-number-format'
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import { PropTypes } from 'prop-types'
 import Style from './TokenRowStyle'
 import MaterialIcons from '../MaterialIcons'
-import { ApplicationStyles, Helpers, Images, Metrics, Colors, Fonts } from '../../Theme'
+import { Images, Colors } from '../../Theme'
 
 class TokenRow extends React.Component {
   componentDidMount() {
@@ -12,7 +13,10 @@ class TokenRow extends React.Component {
 
   render() {
     const {data} = this.props;
-    console.log('data', data);
+    let balance = data.balance.toString().length > 15 ? data.balance.toString().slice(0, 15) + '...' : data.balance;
+    let value = data.balance * data.price;
+    //  We check there's curently at least one token
+    if (!!balance) {
     return (
       <TouchableOpacity onPress={() => Linking.canOpenURL(`https://etherscan.io/token/${data.contractAddress}`)}>
         <View style={Style.row}>
@@ -22,20 +26,23 @@ class TokenRow extends React.Component {
               </View>
             </View>
 
-
             <View style={Style.middleBox}>
               <Text style={Style.tokenName}>{data.tokenName}</Text>
-              <Text style={Style.balance}>{data.balance}</Text>
+              <Text style={Style.balance}>{balance}</Text>
             </View>
-            
-            {/* TODO: * data.price */}
+
             <View style={Style.sideBox}>
-              {/* TODO: Mask */}
-              <Text style={Style.balanceMoney}>
-                ${data.balance.toString().length > 3 ? data.balance.toString().slice(0, 3) + '...' : data.balance }
-              </Text>
+              <NumberFormat 
+                value={value}
+                fixedDecimalScale={true}
+                decimalScale={2}
+                displayType={'text'} 
+                thousandSeparator={true} 
+                prefix={'$'} 
+                renderText={value => <Text style={Style.balanceMoney}>{value}</Text>}
+              />
               <MaterialIcons
-                name={'keyboard-arrow-right'}
+                name={'chevron-right'}
                 size={hp('4%')}
                 color={Colors.grey}
                 style={{ alignSelf: "center" }}
@@ -43,7 +50,9 @@ class TokenRow extends React.Component {
             </View>
         </View>
       </TouchableOpacity>
-    )
+    )} else {
+      return null
+    }
   }
 }
 

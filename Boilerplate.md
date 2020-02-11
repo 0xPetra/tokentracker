@@ -1,8 +1,6 @@
 
 # React Native Challenge
 
-Xivis is looking for people who can build awesome mobile apps & products, so we created this challenge to test our candidates' overall developer skills.
-
 Your objective is to build an incredible experience for users who want to see an up-to-date list of all their ERC-20](https://www.investopedia.com/news/ tokens. For this purpose, the user will first have to enter his/her Ethereum Address into a text field.
 
 The App is divided in 3 main parts:

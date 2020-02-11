@@ -10,7 +10,7 @@ const Background = (props) => {
             onPress={props.onPress}
         >
             <Image 
-            style={{ position: 'absolute', marginTop: hp('25%') }} 
+            style={{ position: 'absolute', marginTop: hp('30%') }} 
             source={Images.background} resizeMode={'contain'} />        
             {props.children}
         </View>

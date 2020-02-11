@@ -5,8 +5,7 @@ import { Text, View, Image, Alert } from 'react-native'
 import { PropTypes } from 'prop-types'
 import Style from './HeaderMainStyle'
 import { Helpers, Images, Fonts } from '../../Theme';
-import NavigationService from '../../Services/NavigationService'
-
+import NumberFormat from 'react-number-format'
 
 class HeaderMain extends React.Component {
   
@@ -24,8 +23,7 @@ class HeaderMain extends React.Component {
             },
             {
               text: 'OK', onPress: () => {
-                  this.props.setUser('');
-                  NavigationService.navigateAndReset('Intro');
+                  this.props.logoutUser('')
                 }
             },
         ],
@@ -34,21 +32,32 @@ class HeaderMain extends React.Component {
   
 
   render() {
-    const {address} = this.props;
+    const {address, tokenBalances} = this.props;
+    const value = tokenBalances !== {} ? 
+                    tokenBalances.reduce((acc, currentVal) => {return currentVal.price * currentVal.balance + acc}, 0) 
+                    : 
+                    0
     return (
-      <View style={{ flex: 2 }}>
-        <Image style={[Style.headerBackground]} source={Images.headerBackground} resizeMode={'contain'} />
+      <View style={Style.container}>
+        <Image style={Style.headerBackground} source={Images.headerBackground} resizeMode={'stretch'} />
         <View style={Style.boxes}>
           <Text style={[Fonts.bold, Style.home]}>Home</Text>
           <Text style={[Fonts.h3, Style.title]}>Good day,</Text>
           {/* UX Suggestion: Add edit pen */}
           <Text style={[Fonts.h3, Style.address]} onPress={() => this.cleanAddress()}>{address.slice(0, 6)}...</Text>
         </View>
-        <View style={Style.boxes}>
+        <View style={Style.boxesFixed}>
           <View style={[Helpers.mainCenter, Style.balanceBox]}>
             <Text style={[Fonts.normal, Style.balance]}>Balance</Text>
-            {/* TODO: Add mask for amounts */}
-            <Text style={[Fonts.h2, Style.amount]}>$2000</Text>
+              <NumberFormat 
+                fixedDecimalScale={true}
+                decimalScale={2}
+                value={value} 
+                displayType={'text'} 
+                thousandSeparator={true} 
+                prefix={'$'} 
+                renderText={value => <Text style={[Fonts.h2, Style.amount]}>{value}</Text>}
+              />
           </View>
         </View>
       </View>
@@ -62,7 +71,7 @@ HeaderMain.propTypes = {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  setUser: (address) => dispatch(SetUser.setUser(address)),
+  logoutUser: () => dispatch(SetUser.logoutUser()),
 })
 
 export default connect(

@@ -1,34 +1,53 @@
 import React from 'react'
-import { Platform, Text, View, Button, ActivityIndicator, Image, StatusBar} from 'react-native'
+import { View, ActivityIndicator, StatusBar, Alert} from 'react-native'
 import { connect } from 'react-redux'
 import { PropTypes } from 'prop-types'
 import HeaderMain from '../../Components/HeaderMain'
 import TokenBalances from '../../Components/TokenBalances'
 import Style from './MainScreenStyle'
-import { ApplicationStyles, Helpers, Images, Metrics } from 'App/Theme'
 import { Colors } from '../../Theme'
 
 class MainScreen extends React.Component {
+  
   componentDidMount() {
+    // this.checkForErrors()
+  };
+
+  checkForErrors() {
+    const {balancesLoading, balancesErrorMessage} = this.props;
+    if (!balancesLoading && balancesErrorMessage) {
+      Alert.alert(
+        'Error',
+        `There was an error fetching balances and rates for the selected tokens.`,
+        [
+            {
+                text: 'OK',
+                onPress: () => {}
+            },
+        ],
+        {cancelable: false}
+    )
+    }
   }
 
   render() {
-    const {address, balancesLoading} = this.props;
+    const {address, balancesLoading, tokenBalances} = this.props;
     return (
-      <View style={{ flex: 1,  }}>
+      <View style={{ flex: 1 }}>
         <StatusBar
           backgroundColor="blue"
           barStyle="light-content"
         />
         <HeaderMain 
+          tokenBalances={tokenBalances}
           address={address} 
         />
         <View style={{flex: 3}}>
         {balancesLoading ?
-          <ActivityIndicator size="large" color={Colors.brand} />
+          <ActivityIndicator size="large" color={Colors.primary} />
           :
           <TokenBalances 
-            tokenBalances={this.props.tokenBalances}
+            tokenBalances={tokenBalances}
             balancesErrorMessage={this.props.balancesErrorMessage}
           />
           }
@@ -42,7 +61,7 @@ MainScreen.propTypes = {
   address: PropTypes.string,
   tokenBalances: PropTypes.array,
   balancesLoading: PropTypes.bool,
-  balancesErrorMessage: PropTypes.string,
+  balancesErrorMessage: PropTypes.object,
 }
 
 const mapStateToProps = (state) => ({

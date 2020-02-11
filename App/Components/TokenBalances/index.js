@@ -15,7 +15,7 @@ class TokenBalances extends React.Component {
   }
 
   emptyItem = () => {
-    return (<Text>
+    return (<Text style={Style.error}>
       This account doesn't have any tokens.
     </Text>)
   }
@@ -32,28 +32,27 @@ class TokenBalances extends React.Component {
 
     return (
       <React.Fragment>
-        {balancesErrorMessage ?
-        <Text>
-          {balancesErrorMessage}
+        {balancesErrorMessage &&
+        <Text style={Style.error}>
+          {'An error ocurred while fetching the balance and the rate.'}
         </Text>
-        :
-          <FlatList
-              // style={{marginTop}}
-              data={tokenBalances}
-              keyExtractor={item => item.tokenSymbol}
-              ListHeaderComponent={this.listTitle()}
-              renderItem={({item}) => <TokenRow data={item}/> }
-              refreshControl={<RefreshControl
-                  tintColor={Colors.tintColor}
-                  colors={[Colors.tintColor]}
-                  progressBackgroundColor={Colors.white}
-                  refreshing={refreshing}
-                  // onRefresh={() => this._onRefresh(refetch)}
-                  />}
-              showsVerticalScrollIndicator={false}
-              ListEmptyComponent={this.emptyItem()}
-          />
-      }
+        }
+        <FlatList
+            // style={{marginTop}}
+            data={tokenBalances}
+            keyExtractor={item => item.tokenSymbol}
+            ListHeaderComponent={this.listTitle()}
+            renderItem={({item}) => <TokenRow data={item}/> }
+            refreshControl={<RefreshControl
+                tintColor={Colors.tintColor}
+                colors={[Colors.tintColor]}
+                progressBackgroundColor={Colors.white}
+                refreshing={refreshing}
+                // onRefresh={() => this._onRefresh(refetch)}
+                />}
+            showsVerticalScrollIndicator={false}
+            ListEmptyComponent={this.emptyItem()}
+        />
       </React.Fragment>
     )
   }

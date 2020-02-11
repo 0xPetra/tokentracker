@@ -1,5 +1,4 @@
 import axios from 'axios'
-// import { Config } from 'App/Config
 
 // TODO: Move to constants
 const etherscanAPI = 'https://api.etherscan.io/api'
@@ -22,12 +21,23 @@ async function getTokens(address) {
     startblock: 0,
     endblock: 999999999,
     sort: 'asc',
-    // TODO: Move to Env
-    // apikey: 'PM1TP3JRM7VDY5IRVKSCN2N71424CEV4WN'
   }
   const response = await userApiClient.get(etherscanAPI, { params })
   if (response.status === 200 && response.data.message === 'OK') {
-    return response.data.result
+    let tokens = [];
+    let hashmap = {};
+    response.data.result.map((token) => {
+      if(!hashmap[token.contractAddress]) {
+        hashmap[token.contractAddress] = true;
+        tokens.push({
+          contractAddress: token.contractAddress,
+          tokenName: token.tokenName,
+          tokenSymbol: token.tokenSymbol,
+          tokenDecimal: token.tokenDecimal,
+        });
+    }
+  })
+    return tokens;
   }
   else {
     return response.data.message
@@ -58,21 +68,16 @@ async function getTokensBalances(address, contractaddress) {
 // https://rest.coinapi.io/v1/exchangerate/BTC/USD?apikey=<API-KEY>
 async function getTokenPrice(tokenSymbol) {
   const baseURL = `https://rest.coinapi.io/v1/exchangerate/${tokenSymbol}/USD`
+  const apikey = process.env['COINAPI_KEY'];
   const params = {
-    // Xivis
-    // apikey: 'E0A376F2-B9B6-4B2C-9848-76C3D918BE82'//process.env.COINAPI_KEY,
-    apikey: '32B27A5B-3202-4481-8720-EE9D7F2880D6'//process.env.COINAPI_KEY,
-
-    // FPetra
-    // apikey: 'EA419A45-365C-44F3-8DB8-564822EF773D'//process.env.COINAPI_KEY,
+    apikey
   }
   const response = await userApiClient.get(baseURL, { params })
-  console.log('response', response);
   if (response.status === 200) {
-    return response.data.rate
+    return !!response.data.rate ? response.data.rate : 0
   }
   else {
-    return 'error'
+    return response
   }
 }
 

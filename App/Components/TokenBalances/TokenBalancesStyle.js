@@ -9,4 +9,8 @@ export default StyleSheet.create({
     paddingHorizontal: hp('3%'),
     width: wp('100%'),
   },
+  error: {
+    alignSelf: 'center', 
+    color: Colors.error,
+}
 })

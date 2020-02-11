@@ -21,6 +21,7 @@ import { createActions } from 'reduxsauce'
 const { Types, Creators } = createActions({
   // Set user address
   setUser: ['address'],
+  logoutUser: null,
 })
 
 export const AccountTypes = Types

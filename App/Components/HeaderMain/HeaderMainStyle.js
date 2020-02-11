@@ -3,8 +3,14 @@ import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-nat
 import { Helpers, Metrics, Fonts, Colors } from '../../Theme'
 
 export default StyleSheet.create({
+  container: {
+    flex: 2, 
+    width: wp('100%'),
+  },
   headerBackground: {
     position: 'absolute',
+    width: wp('100%'),
+    height: hp('30%'),
     marginTop: 0,
     shadowColor: "#000000",
     shadowOpacity: 0.5,
@@ -17,6 +23,14 @@ export default StyleSheet.create({
   boxes: {
     flex: 1, 
     padding: hp('3%'),
+    backgroundColor: 'transparent',
+  },
+  boxesFixed: {
+    position: 'absolute',
+    alignSelf: 'center',
+    marginTop: hp('22%'),
+    padding: hp('3%'),
+    backgroundColor: 'transparent',
   },
   home: {
     color: Colors.white,
@@ -48,7 +62,7 @@ export default StyleSheet.create({
     alignSelf: 'center',
     justifyContent: 'center',
     height: hp('10%'),
-    width: wp('45%'),
+    width: 'auto',
     backgroundColor: Colors.white,
     shadowColor: "#000000",
     shadowOpacity: 0.5,

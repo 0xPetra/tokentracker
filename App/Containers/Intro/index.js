@@ -4,7 +4,7 @@ import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-nat
 import Style from './IntroScreenStyle';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import MaterialIcons from '../../Components/MaterialIcons'
-import { ApplicationStyles, Helpers, Images, Metrics, Colors } from '../../Theme'
+import { ApplicationStyles, Helpers, Images, Metrics, Colors, Fonts } from '../../Theme'
 import Background from '../../Components/Background';
 import TEXTS from '../../Constants/texts';
 import NavigationService from '../../Services/NavigationService'
@@ -16,7 +16,6 @@ class IntroScreen extends React.Component {
 
   iterateNext() {
     let { iterator } = this.state;
-    console.log('iterator', iterator);
     if (iterator < 2) {
       this.setState({ iterator: iterator + 1 })
     } else {
@@ -26,6 +25,7 @@ class IntroScreen extends React.Component {
 
   myButton = () => {
     return ( 
+    // TODO: COmponenticize
     <TouchableOpacity
     onPress={() => this.iterateNext()}
     style={{ 
@@ -35,19 +35,21 @@ class IntroScreen extends React.Component {
       borderRadius: 5, 
       borderwidth: wp('35%'), 
       flexDirection: 'row',
-      justContent: 'space-around', 
+      justifyContent: 'space-between', 
       alignItems: 'center',
-      paddingHorizontal:wp('2%')
+      paddingHorizontal:wp('3%')
     }}
     >
       <Text style={{color: Colors.white }}>
         Next
       </Text>
+      <View style={{heigth: hp('3%'), borderLeftWidth: 1, borderColor: Colors.greyTranslucid}}>
       <MaterialIcons
-                name={'keyboard-arrow-right'}
+                name={'chevron-right'}
                 size={hp('3%')}
                 color={Colors.white}
                 />
+      </View>
     </TouchableOpacity>
   )}
 
@@ -57,23 +59,26 @@ class IntroScreen extends React.Component {
       <Background>
         <View style={{flex: 1}}>
 
+        <View style={Style.skipContainer}>
         <Button
           style={Style.skipBtn}
+          color={Colors.black}
+          size={Fonts.normal}
           onPress={() => NavigationService.navigate('SetAccount')}
           title="Skip"
         />
+        </View>
 
         <View style={{ flex: 3 }}>
           <Image style={Style.image} source={Images[TEXTS.INTRO[iterator].image]} resizeMode={'contain'} />
         </View>
 
-        <View style={{ flex: 2 }}>
-          <Text style={Style.text}>{TEXTS.INTRO[iterator].title}</Text>
-          <Text style={Style.text}>{TEXTS.INTRO[iterator].subtitle}</Text>
+        <View style={{ flex: 2, padding: wp('5%') }}>
+          <Text style={Style.title}>{TEXTS.INTRO[iterator].title}</Text>
+          <Text style={Style.subtitle}>{TEXTS.INTRO[iterator].subtitle}</Text>
         </View>
 
-
-        <View style={{ flexDirection: 'row', flex: 1, justifyContent: 'space-around', alignItems: 'center'}}>
+        <View style={Style.footer}>
           <Image source={Images.smallLines} resizeMode={'contain'} />
           {this.myButton()}
         </View>

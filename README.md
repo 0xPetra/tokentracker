@@ -1,7 +1,13 @@
 
-# React Native Challenge
+# Start project with API keys
 
-Xivis is looking for people who can build awesome mobile apps & products, so we created this challenge to test our candidates' overall developer skills.
+To be able to use this repo, you need to add an api. You can do so in package.json in the `start` and `start-reset` scripts:
+You can get an API key from https://coinapi.io/
+`start` should be used if you're using the same key.
+`start-reset` should be used when reseting the API_KEY
+
+
+# React Native Challenge
 
 Your objective is to build an incredible experience for users who want to see an up-to-date list of all their [ERC-20](https://www.investopedia.com/news/what-erc20-and-what-does-it-mean-ethereum/) tokens. 
 
