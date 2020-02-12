@@ -3,7 +3,9 @@
 
 To be able to use this repo, you need to add an api. You can do so in package.json in the `start` and `start-reset` scripts:
 You can get an API key from https://coinapi.io/
+
 `start` should be used if you're using the same key.
+
 `start-reset` should be used when reseting the API_KEY
 
 
