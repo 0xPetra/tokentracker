@@ -13,7 +13,7 @@ class TokenRow extends React.Component {
 
   render() {
     const {data} = this.props;
-    let balance = data.balance.toString().length > 15 ? data.balance.toString().slice(0, 15) + '...' : data.balance;
+    let balance = (!!data.balance && data.balance.toString().length > 15) ? data.balance.toString().slice(0, 15) + '...' : data.balance;
     let value = data.balance * data.price;
     //  We check there's curently at least one token
     if (!!balance) {

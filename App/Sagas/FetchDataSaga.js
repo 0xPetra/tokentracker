@@ -3,7 +3,7 @@ import { userTokenService } from '../Services/UserService'
 import DataActions from '../Stores/Data/Actions'
 
 export function* fetchData({address}) {
-
+  
   // Set balancesLoading to true
   yield put(DataActions.balancesLoading())
   
@@ -36,9 +36,11 @@ export function* fetchData({address}) {
     }
   })
   }
+  
+  yield put(DataActions.tokenBalances(tokens))
 
   if (!!errorgetTokensBalances || !!errorbalancesErrorMessage) {
     yield put(DataActions.balancesErrorMessage({ error: `${errorgetTokensBalances} \n ${errorbalancesErrorMessage}`}))
   }
-    yield put(DataActions.tokenBalances(tokens))
+  return 'ok'
 }

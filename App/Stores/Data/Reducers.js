@@ -23,6 +23,7 @@ export const tokenBalances = (state, { tokens }) => ({
   ...state,
   tokenBalances: tokens, 
   balancesLoading: false,
+  balancesErrorMessage: null
 })
 
 export const balancesErrorMessage = (state, { error }) => ({

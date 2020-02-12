@@ -33,7 +33,7 @@ class HeaderMain extends React.Component {
 
   render() {
     const {address, tokenBalances} = this.props;
-    const value = tokenBalances !== {} ? 
+    const value = (tokenBalances && tokenBalances !== 'NOTOK' && !!tokenBalances.length) ? 
                     tokenBalances.reduce((acc, currentVal) => {return currentVal.price * currentVal.balance + acc}, 0) 
                     : 
                     0

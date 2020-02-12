@@ -1,17 +1,16 @@
 import React from 'react'
-import { Text, View, FlatList, RefreshControl } from 'react-native'
+import { connect } from 'react-redux'
+import { Text, FlatList, RefreshControl } from 'react-native'
 import { PropTypes } from 'prop-types'
+import FetchDataActions from '../../Stores/FetchData/Actions'
 import Style from './TokenBalancesStyle'
-import { ApplicationStyles, Helpers, Images, Metrics, Colors } from 'App/Theme'
+import { Colors } from 'App/Theme'
 import TokenRow from '../TokenRow'
 
 class TokenBalances extends React.Component {
 
   state = {
     refreshing: false
-  }
-
-  componentDidMount() {
   }
 
   emptyItem = () => {
@@ -24,6 +23,16 @@ class TokenBalances extends React.Component {
     return (<Text style={Style.text}>
       Ethereum Balances
       </Text>)
+  }
+
+  _onRefresh = async () => {
+    const { address } = this.props;
+    this.setState({ refreshing: true })
+    const response = await this.props.fetchData(address);
+    // console.log('response', response)
+    if (response === 'ok') {
+      this.setState({ refreshing: false });
+    }
   }
   
   render() {
@@ -48,7 +57,7 @@ class TokenBalances extends React.Component {
                 colors={[Colors.tintColor]}
                 progressBackgroundColor={Colors.white}
                 refreshing={refreshing}
-                // onRefresh={() => this._onRefresh(refetch)}
+                onRefresh={() => this._onRefresh()}
                 />}
             showsVerticalScrollIndicator={false}
             ListEmptyComponent={this.emptyItem()}
@@ -62,4 +71,11 @@ TokenBalances.propTypes = {
   address: PropTypes.string,
 }
 
-export default (TokenBalances)
+const mapDispatchToProps = (dispatch) => ({
+  fetchData: (address) => dispatch(FetchDataActions.fetchData(address)),
+})
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(TokenBalances)

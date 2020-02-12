@@ -48,6 +48,7 @@ class MainScreen extends React.Component {
           :
           <TokenBalances 
             tokenBalances={tokenBalances}
+            address={address}
             balancesErrorMessage={this.props.balancesErrorMessage}
           />
           }
